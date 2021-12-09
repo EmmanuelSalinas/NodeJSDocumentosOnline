@@ -1,4 +1,5 @@
-const { MongoClient } = require('mongodb')
+const mongo = require('mongodb')
+const { MongoClient } = mongo
 
 
 async function run(){
@@ -7,27 +8,38 @@ async function run(){
     const client = new MongoClient(uri)
 
     try{
+        //conect with server
         await client.connect();
+        //await client.db('documents_nodejs')
 
-        await listDatabases(client)
-    } catch(e){
+        
+
+    }catch(e){
         console.error(e);
     }finally{
         await client.close
     }
+
+    
     
 }
 
 run().catch(console.error)
 
 
-async function listDatabases(client){
-    const databasesList = await client.db().admin().listDatabases();
 
-    console.log('databases:')
-    databasesList.databases.forEach(db => {
-        console.log(`- ${db.name}`)
-    });
-}
+    /*
+    const collection = db.collection('users')
+
+    try{
+        await collection.insertOne({name:'Emmanuel', mail:'salinas.e9810@gmail.com'})
+    }catch(error){
+        console.error(error)
+    }
+
+
+
+*/
+
 
 
