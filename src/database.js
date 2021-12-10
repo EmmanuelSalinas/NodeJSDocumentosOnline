@@ -1,30 +1,12 @@
-const mongo = require('mongodb')
-const { MongoClient } = mongo
+const { MongoClient } = require("mongodb")
+const uri = 'mongodb+srv://emmanuel:SalinaS@cluster0.smf6z.mongodb.net/documentosApp?retryWrites=true&w=majority'
 
 
-async function run(){
-    const uri = 'mongodb+srv://emmanuel:SalinaS@cluster0.smf6z.mongodb.net/documentosApp?retryWrites=true&w=majority'
+let client = new MongoClient(uri)
 
-    const client = new MongoClient(uri)
 
-    try{
-        //conect with server
-        await client.connect();
-        //await client.db('documents_nodejs')
 
-        
-
-    }catch(e){
-        console.error(e);
-    }finally{
-        await client.close
-    }
-
-    
-    
-}
-
-run().catch(console.error)
+module.exports = client
 
 
 
