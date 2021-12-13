@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs')
 
 
 const client = require('../database.js')
+const passport = require('passport')
 
 
 //funciones para encryptar contraseña y verificar
@@ -25,6 +26,12 @@ async function matchPass(pass, mail) {
 router.get('/users/signin', (req, res) => {
     res.render('users/signin')
 })
+
+router.post('/users/signin', passport.authenticate('local',{ 
+    successRedirect: '/docs', 
+    failureRedirect: '/users/signin', 
+    failureFlash:true
+}))
 
 router.get('/users/signup', (req, res) => {
     res.render('users/signup')
