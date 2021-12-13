@@ -1,13 +1,75 @@
+<!-- 
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+
+
+
 <div class="row">
-    <div class="col-md-10 mx-auto">
-        <div class="card mt-4 text-center">
-            <div class="card-header">
-                <h1>Login</h1>
+    <div class="containerEdit">
+        <div class="card-header text-center">
+            <h3> <small class="text-muted">Editor</small></h1>
+        </div>
+        <div class="card-body-mane">
+
+
+            <div id="editor">
+                <p>Hello World!</p>
+                <p>Some initial <strong>bold</strong> text</p>
+                <p><br></p>
             </div>
-            <img src="/img/icon.png" alt="Logo" class="logo rounded-circle mx-auto d-block  m-4">
-            <div class="card-body">
-                <h1>notas</h1>
-            </div>
+
+
+
+
         </div>
     </div>
-</div> 
+
+
+    <div class="containerView">
+        <div class="card-header text-center">
+            <h3> <small class="text-muted">Vista</small></h1>
+        </div>
+        <div class="card-body-mane">
+
+
+            
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="containerInfo">
+
+
+
+    </div>
+
+
+
+
+
+</div>
+
+
+<script>
+  var quill = new Quill('#editor', {
+    theme: 'snow'
+  });
+</script> 

@@ -1,8 +1,55 @@
-<nav class="navbar navbar-expand-sm bg-light">
-  
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+
+
+    <a class="navbar-brand pl-3" href="/about">Docs   App <small>about</small></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+
+        {{#if user}}
+        <ul class="navbar-nav mr-auto sidenav" id="navAccordion">
+            <li class="nav-item active">
+                <a class="nav-link" href="#"> <img src="/img/icon.png" alt="Logo"
+                        class="logo rounded-circle mx-auto d-block  m-4"> </a>
+            </li>
+            <li class="nav-item pl-4">
+                <a class="nav-link" href="/docs">Nuevo Documento <span style="vertical-align: bottom;" class="material-icons">add</span></a>
+                <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
+            </li>
+        </ul>
+
+
+        {{/if}}
+
+
+
         <ul class="navbar-nav ml-auto">
-            <a class="navbar-brand" href="#">About</a>
-            
+
+            {{#if user}}
+            <li class="nav-item dropdown active">
+                <a id="navbarDropdown" href="#" class="nav-link dropdown-toggle pr-4" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" style="font-size: 17px;">
+                    {{user.name}}</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a href="/docs/list" class="dropdown-item">documentos</a>
+                    <a href="/users/salir" class="dropdown-item">cerrar sesión </a>
+                </div>
+            </li>
+            {{else}}
+            <li class="nav-item ">
+                <a href="/users/signin" class="nav-link">Login </a>
+            </li>
+            <li class="nav-item mr-2">
+                <a href="/users/signup" class="nav-link">Registro</a>
+            </li>
+
+            {{/if}}
+
 
         </ul>
-    </nav>
+    </div>
+</nav>

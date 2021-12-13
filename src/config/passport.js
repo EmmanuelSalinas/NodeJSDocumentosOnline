@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs')
 
 //autenticacion local
 const LocalStrategy = require('passport-local').Strategy
+const { ObjectId } = require('mongodb')
 
 
 async function matchPass(pass, email) {
@@ -53,13 +54,21 @@ passport.serializeUser((user,done)=>{
 });
 
 passport.deserializeUser(async(id,done)=>{
+    console.log('Desserialize&&&&&&&&&&&&&&&&&&&&&')
+    console.log(id)
     await client.connect();
     db = client.db('documents_nodejs');
     collectionUser = db.collection('users')
 
-    await collectionUser.findOne({_id: id},(err,user)=>{
+
+    const user = await collectionUser.findOne({_id: new ObjectId(id)},(err,user)=>{
+        
+
          done(err,user);
     })
+
+
+    console.log(user)
 })
 
 

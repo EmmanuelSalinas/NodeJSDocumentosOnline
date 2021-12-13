@@ -27,10 +27,13 @@ router.get('/users/signin', (req, res) => {
     res.render('users/signin')
 })
 
-router.post('/users/signin', passport.authenticate('local',{ 
-    successRedirect: '/docs', 
-    failureRedirect: '/users/signin', 
-    failureFlash:true
+
+
+
+router.post('/users/signin', passport.authenticate('local', {
+    successRedirect: '/about',
+    failureRedirect: '/users/signin',
+    failureFlash: true
 }))
 
 router.get('/users/signup', (req, res) => {
@@ -67,25 +70,42 @@ router.post('/users/signup', async (req, res) => {
                 await client.connect()
                 db = client.db('documents_nodejs')
                 collectionUser = db.collection('users')
-                
-                //verify email is in use
-                const isEmailInUse = await collectionUser.findOne({ email: email })
-                
-                if (isEmailInUse) {
-                    req.flash('error_msg', 'El correo ya esta en uso')
-                    res.redirect('/users/signup')
-                } else {
-                    newPass = await encryptPass(pass)
-                    console.log(newPass)
-                    await collectionUser.insertOne({ name: name, email: email, pass: newPass }, function (err, res) {
-                        if (err) throw err;
-                        console.log('1 document inserted!');
-                        client.close();
-                    })
-                    req.flash('success_msg', 'Registro exitoso')
-                    res.redirect('/users/signin')
 
-                }
+                //verify email is in use
+                const isEmailInUse = await collectionUser.findOne({ email: email }, async function (err, result) {
+                    
+                    console.log(result)
+                    
+                    if (result) {
+                        console.log('1')
+                        errors.push({ text: 'El correo ya esta en uso' })
+                        res.render('users/signup', { errors, name, email, pass, confpass })
+                    } else {
+                        console.log('2')
+                        // we don't
+                        newPass = await encryptPass(pass)
+                        console.log(newPass)
+                        await collectionUser.insertOne({ name: name, email: email, pass: newPass }, function (err, res) {
+                            if (err) throw err;
+                            console.log('1 document inserted!');
+                            client.close();
+                        })
+                        req.flash('success_msg', 'Registro exitoso')
+                        res.redirect('/users/signin')
+                    }
+
+
+                })
+
+
+                //console.log(isEmailInUse.length)
+
+                //if (isEmailInUse) {
+
+                //} else {
+
+
+                //}
 
 
             } catch (error) {
@@ -96,9 +116,13 @@ router.post('/users/signup', async (req, res) => {
         }
     }
 
-
-
-
 })
+router.get('/users/salir', (req, res, next) => {
+    req.logout()
+    res.redirect('/users/signin')
+})
+
+
+
 
 module.exports = router;

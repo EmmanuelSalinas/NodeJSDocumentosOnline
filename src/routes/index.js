@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
+const passport = require('passport')
 
 
 router.get('/', (req, res) =>{
-    res.render('index');
+    res.redirect('/users/signin')
 });
 
 router.get('/about', (req,res)=>{
@@ -11,3 +12,4 @@ router.get('/about', (req,res)=>{
 })
 
 module.exports=router;
+ 
