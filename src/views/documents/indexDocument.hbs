@@ -40,18 +40,8 @@
             <h3> <small class="text-muted">Vista</small></h1>
         </div>
         <div class="card-body-mane">
-
-            <div id="viewDoc">
-
-            </div>
-
-
-
-
-
+            <div id="viewDoc"></div>
         </div>
-
-
     </div>
 
 
@@ -59,15 +49,19 @@
         <div class="card-header text-center">
             <h3> <small class="text-muted">Datos del Documento</small></h1>
         </div>
-        <div class="card-body-mane text-center mt-4">
+        <div class="card-body-mane text-center mt-2">
 
-            <div class="contanerButtons ">
-                <button type="button" class="btn btn-success mr-2">Subir Documento</button>
-                <button type="button" class="btn btn-success mr-2">Guardar</button>
-                <button type="button" class="btn btn-success mr-2">Editar</button>
-                <button type="button" class="btn btn-danger mr-2">Eliminar</button>
+
+            <button type="button" class="btn btn-success mr-2">Subir Documento</button>
+            <button type="button" class="btn btn-success mr-2" onclick="guardarDoc()">Guardar</button>
+            <button type="button" class="btn btn-danger mr-2">Eliminar</button>
+
+            <div class="cont">
+                <p style="width: 300px;">Titulo: </p>
+                <p style="width: 300px;">Autor: </p>
+                <p style="width: 300px;"> Fecha de creación:</p>
+                <p style="width: 300px;"> Ultima modificación : </p>
             </div>
-            
 
 
 
@@ -103,13 +97,43 @@
     var quill = new Quill('#editor', options);
 
     var quillview = new Quill('#viewDoc', optionsViewer)
+    let htmlInfo = ''
+    
+    swal({
+        text: 'La primera linea de tu Documento será su Título',
+        icon: 'info',
+    })
 
 
     quill.on('text-change', function (delta, oldDelta, source) {
-        var justHtml = quill.root.innerHTML;
-
-        quillview.root.innerHTML = justHtml;
+        
+        htmlInfo = quill.root.innerHTML
+        quillview.root.innerHTML = htmlInfo;
     });
+    
+    
+    function guardarDoc() {
+
+        console.log('dentro de post')
+        console.log(htmlInfo)
+        $.ajax({
+            type: 'POST',
+            url: '/docs',
+            data: {
+                htmlDoc: htmlInfo,
+                
+            }
+        }).then(function(data){
+            console.log('success')
+        })
+
+
+    }
+
+    
+
+
+
 
 
 

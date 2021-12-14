@@ -21,13 +21,7 @@ passport.use(new LocalStrategy({usernameField: 'email'},async(email, pass,done)=
 
     const user = await collectionUser.findOne({email: email})
 
-    console.log('???????????????????????')
-    console.log('user')
-    console.log(user)
-
-    console.log(email)
-    console.log(pass)
-    console.log(user.pass)
+    
 
 
     if(!user){
@@ -46,16 +40,13 @@ passport.use(new LocalStrategy({usernameField: 'email'},async(email, pass,done)=
 }));
 
 passport.serializeUser((user,done)=>{
-    console.log('serialize&&&&&&&&&&&&&&&&&&&&&')
-    console.log(user)
-    console.log(user._id)
+    
     
     done(null,user._id)
 });
 
 passport.deserializeUser(async(id,done)=>{
-    console.log('Desserialize&&&&&&&&&&&&&&&&&&&&&')
-    console.log(id)
+    
     await client.connect();
     db = client.db('documents_nodejs');
     collectionUser = db.collection('users')
@@ -68,7 +59,7 @@ passport.deserializeUser(async(id,done)=>{
     })
 
 
-    console.log(user)
+    
 })
 
 

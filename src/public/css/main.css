@@ -54,15 +54,29 @@ h4.texto{
     
 }
 
-.containerButtons{
-  
-}
+
 
 .card-body-mane{
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   padding: 0px;
 
+}
+
+.cont{
+  width: 96%;
+  height: 70px;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 10px;
+  
+}
+
+.cont input{
+  display: inline-block;
+}
+.cont p{
+  display: inline-block;
 }
 
 #editor{
@@ -229,4 +243,4 @@ h4.texto{
       top: -7px;
     }
   }
-  
+   

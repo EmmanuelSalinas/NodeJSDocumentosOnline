@@ -47,7 +47,7 @@ router.post('/users/signup', async (req, res) => {
 
     //if en caso de que el usuario mande campos vacios
     if (name == '' || email == '' || pass == '' || confpass == '') {
-        console.log('adentro de campos vacios')
+        
         errors.push({ text: 'no se aceptan campos vacios' })
         res.render('users/signup', { errors, name, email, pass, confpass })
     } else {
@@ -74,17 +74,17 @@ router.post('/users/signup', async (req, res) => {
                 //verify email is in use
                 const isEmailInUse = await collectionUser.findOne({ email: email }, async function (err, result) {
                     
-                    console.log(result)
+                    
                     
                     if (result) {
-                        console.log('1')
+                        
                         errors.push({ text: 'El correo ya esta en uso' })
                         res.render('users/signup', { errors, name, email, pass, confpass })
                     } else {
-                        console.log('2')
-                        // we don't
+                        
+                        
                         newPass = await encryptPass(pass)
-                        console.log(newPass)
+                        
                         await collectionUser.insertOne({ name: name, email: email, pass: newPass }, function (err, res) {
                             if (err) throw err;
                             console.log('1 document inserted!');
