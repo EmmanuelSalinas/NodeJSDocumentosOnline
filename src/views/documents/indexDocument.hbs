@@ -25,9 +25,7 @@
 
 
             <div id="editor">
-                <p>Hello World!</p>
-                <p>Some initial <strong>bold</strong> text</p>
-                <p><br></p>
+
             </div>
 
 
@@ -43,8 +41,10 @@
         </div>
         <div class="card-body-mane">
 
+            <div id="viewDoc">
 
-            
+            </div>
+
 
 
 
@@ -59,10 +59,16 @@
         <div class="card-header text-center">
             <h3> <small class="text-muted">Datos del Documento</small></h1>
         </div>
-        <div class="card-body-mane">
+        <div class="card-body-mane text-center mt-4">
 
-
+            <div class="contanerButtons ">
+                <button type="button" class="btn btn-success mr-2">Subir Documento</button>
+                <button type="button" class="btn btn-success mr-2">Guardar</button>
+                <button type="button" class="btn btn-success mr-2">Editar</button>
+                <button type="button" class="btn btn-danger mr-2">Eliminar</button>
+            </div>
             
+
 
 
 
@@ -81,7 +87,31 @@
 
 
 <script>
-  var quill = new Quill('#editor', {
-    theme: 'snow'
-  });
-</script> 
+    var options = {
+        theme: 'snow'
+    };
+
+    var optionsViewer = {
+        "theme": "snow",
+        "modules": {
+            "toolbar": false
+        },
+        "readOnly": true
+    };
+
+
+    var quill = new Quill('#editor', options);
+
+    var quillview = new Quill('#viewDoc', optionsViewer)
+
+
+    quill.on('text-change', function (delta, oldDelta, source) {
+        var justHtml = quill.root.innerHTML;
+
+        quillview.root.innerHTML = justHtml;
+    });
+
+
+
+
+</script>
