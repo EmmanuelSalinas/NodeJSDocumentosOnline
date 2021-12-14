@@ -98,7 +98,7 @@
 
     var quillview = new Quill('#viewDoc', optionsViewer)
     let htmlInfo = ''
-    
+
     swal({
         text: 'La primera linea de tu Documento será su Título',
         icon: 'info',
@@ -106,31 +106,66 @@
 
 
     quill.on('text-change', function (delta, oldDelta, source) {
-        
+
         htmlInfo = quill.root.innerHTML
         quillview.root.innerHTML = htmlInfo;
     });
-    
-    
+
+
     function guardarDoc() {
 
-        console.log('dentro de post')
-        console.log(htmlInfo)
-        $.ajax({
-            type: 'POST',
-            url: '/docs',
-            data: {
-                htmlDoc: htmlInfo,
-                
-            }
-        }).then(function(data){
-            console.log('success')
-        })
+
+        var delta = quill.getContents(0);
+        var titulo = delta.ops[0].insert
+
+        titulo1 = titulo.split('\n')
+        console.log(titulo1[0])
+
+
+        if (htmlInfo == '') {
+            swal({
+                text: 'Documento en Blanco',
+                icon: 'error',
+            })
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: '/docs/new',
+                data: {
+                    htmlDoc: htmlInfo,
+                    titulo: titulo1[0]
+
+                }
+            }).then(function (data) {
+                console.log('success')
+
+
+
+                if (data.status === "Success") {
+
+                    swal({
+
+                        text: 'Documento Creado',
+                        icon: 'success',
+                        timer: 1000,
+                        buttons: false,
+                    }).then(() => {
+                        window.location = data.redirect;
+                    })
+
+
+                    
+                }
+
+            })
+        }
+
+
 
 
     }
 
-    
+
 
 
 

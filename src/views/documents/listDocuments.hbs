@@ -1,15 +1,23 @@
+<h1> Tus Documentos <small class=" text-center ml-3">{{titulo}}</small></h1>
 <div class="row">
+    
+    {{#each docs}}
+
     <div class="col-md-3 mx-auto">
         <div class="card mt-5 text-center">
             <div class="card-header">
-                <h1> <small class="text-muted">Información de la App</small></h1>
+                <h4>  <small class="text-muted">{{titulo}}</small></h4>
             </div>
             <img src="/img/icon.png" alt="Logo" class="logoAbout rounded-circle mx-auto d-block  m-4">
             <div class="card-body">
-                
-                <h4 class="texto"> Programado por: <small class="text-muted" style="font-size: 20px;">Emmanuel Salinas Celestino</small></h4>
+                <button type="button" class="btn btn-success mr-2" onclick="guardarDoc()">Editar</button>
+            <button type="button" class="btn btn-danger mr-2">Eliminar</button>
                 
             </div>
         </div>
     </div>
+    {{/each}}
+
+
+
 </div>
