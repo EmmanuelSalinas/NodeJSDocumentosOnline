@@ -9,6 +9,29 @@ router.get('/docs/new', isAuthenticated, (req, res) => {
     res.render('documents/indexDocument')
 });
 
+router.get('/docs/edit/:id', isAuthenticated, async(req, res) => {
+    
+    
+
+    try {
+        await client.connect()
+        db = client.db('documents_nodejs')
+        collectionDocs = db.collection('docs')
+
+        
+        
+        const docs1 = await collectionDocs.findOne({ _id: new ObjectId(req.params.id) },)
+        client.close();
+        
+        res.render('documents/editDocument', {docs1})
+
+    } catch (err) {
+        console.error(err)
+    }
+
+});
+
+
 router.get('/docs/list', isAuthenticated, async (req, res) => {
     try {
         await client.connect()
